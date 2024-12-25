@@ -20,7 +20,6 @@ export const PostListComponent = (props: PostListComponentProps) => {
     )
 }
 
-
 const styles = StyleSheet.create({
     container: {
         padding: 16,
