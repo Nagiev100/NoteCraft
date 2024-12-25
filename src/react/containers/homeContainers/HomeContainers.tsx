@@ -1,6 +1,6 @@
 import { PostListComponent } from "@/src/react/components/PostList/PostListComponent";
 import { useSelector } from "react-redux";
-import { RootState } from "@/src/store/store";
+import { RootState } from "@/src/redux/store/store";
 import { View, Text, StyleSheet } from "react-native";
 import { Button, ButtonTheme } from "../../shared/ui/button/ui/Button";
 
