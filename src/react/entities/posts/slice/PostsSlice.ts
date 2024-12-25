@@ -1,5 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {initialState, Post} from "@/src/react/entities/posts/type/postsType";
+import { Post, PostState} from "@/src/react/entities/posts/type/postsType";
+
+export const initialState: PostState = {
+    posts: [],
+};
 
 export const postSlice = createSlice({
     name: 'post',

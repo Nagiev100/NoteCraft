@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 export default function ErrorPage() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Error Page</Text>
+            <Text style={styles.title}>404</Text>
         </View>
     )
 }

@@ -10,7 +10,3 @@ export interface Post {
 export interface PostState {
     posts: Post[];
 }
-
-export const initialState: PostState = {
-    posts: [],
-};
