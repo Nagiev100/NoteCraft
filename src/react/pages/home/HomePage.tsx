@@ -1,9 +1,10 @@
 import {StyleSheet, Text, View} from "react-native";
+import {Button, ButtonTheme} from "../../shared/ui/Button"
 
 export default function HomePage () {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>HELLO WORLD</Text>
+            <Text style={styles.title}>HELLO huy</Text>
         </View>
     )
 }
