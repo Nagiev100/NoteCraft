@@ -6,7 +6,6 @@ import { Button, ButtonTheme } from "../../shared/ui/button/ui/Button";
 
 export const HomeContainers = () => {
     const posts = useSelector((state: RootState) => state.post.posts);
-
     const hasPosts = posts.length > 0;
 
     return (
