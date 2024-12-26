@@ -6,7 +6,8 @@ import {StatusBar} from 'expo-status-bar';
 import {useEffect} from 'react';
 import 'react-native-reanimated';
 import {useColorScheme} from "react-native";
-import {StoreProvider} from "@/src/store/StoreProvider";
+import {StoreProvider} from "@/src/redux/store/StoreProvider";
+
 
 SplashScreen.preventAutoHideAsync();
 

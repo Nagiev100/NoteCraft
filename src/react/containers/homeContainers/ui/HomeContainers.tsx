@@ -1,8 +1,8 @@
-import { PostListComponent } from "@/src/react/components/PostList/PostListComponent";
+import {Button, ButtonTheme} from "../../../shared/ui/button/ui/Button"
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/redux/store/store";
 import { View, Text, StyleSheet } from "react-native";
-import { Button, ButtonTheme } from "../../shared/ui/button/ui/Button";
+import {PostListComponent} from "@/src/react/components/PostList/ui/PostListComponent";
 
 export const HomeContainers = () => {
     const posts = useSelector((state: RootState) => state.post.posts);
