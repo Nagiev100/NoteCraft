@@ -37,14 +37,14 @@ const getThemeStyles = (theme: ButtonTheme) => themeStyles[theme] || themeStyles
 
 const styles = StyleSheet.create({
     button: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
     },
     text: {
-        color: "red",
+        color: "#fff",
         fontSize: 16,
     },
 });

@@ -1,10 +1,10 @@
-import {StyleSheet, Image, Platform, View, Text} from 'react-native';
-
+import {StyleSheet, View, Text} from 'react-native';
+import {AddPostForm} from "@/src/react/components/addPostForm/ui/addPostForm/ui/AddPostForm";
 
 export default function TabTwoScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>pAGE2</Text>
+           <AddPostForm/>
         </View>
     );
 }
