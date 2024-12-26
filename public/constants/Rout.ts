@@ -1,4 +1,4 @@
 export enum RoutType {
-    HOME = '/home',
-    ADD_POST = '/addPost'
+    HOME = '/index',
+    ADD_POST = '/explore'
 }

@@ -1,8 +1,11 @@
 import {View} from "react-native";
+import {AddPostForm} from "@/src/react/components/addPostForm/ui/addPostForm/ui/AddPostForm";
 
-export const addPostContainers = () => {
+export const AddPostContainers = () => {
 
     return(
-        <View></View>
+        <View>
+            <AddPostForm/>
+        </View>
     )
 }

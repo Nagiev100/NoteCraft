@@ -5,7 +5,7 @@ export const AddPostHeader = () => {
     return(
         <View>
             <BackButton/>
-            <Text></Text>
+            <Text>Hi</Text>
         </View>
     )
 }
