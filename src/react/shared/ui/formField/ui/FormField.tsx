@@ -1,14 +1,14 @@
 import React from "react";
-import { Controller, FieldValues, Control, RegisterOptions } from "react-hook-form";
+import { Controller, FieldValues, Control, RegisterOptions, Path } from "react-hook-form";
 import { Text, TextInput, StyleSheet, View } from "react-native";
 
 interface FormFieldProps<T extends FieldValues> {
     control: Control<T>;
-    name: keyof T;
-    rules: RegisterOptions;
-    placeholder?: string;
-    multiline?: boolean;
-    error?: string;
+    name: Path<T>;
+    rules: Omit<RegisterOptions<T, Path<T>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled">;
+    placeholder: string;
+    multiline: boolean;
+    error: string;
 }
 
 export const FormField = <T extends FieldValues>(
@@ -26,7 +26,7 @@ export const FormField = <T extends FieldValues>(
         <View style={styles.container}>
             <Controller
                 control={control}
-                name={name as string}
+                name={name}
                 rules={rules}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
