@@ -1,12 +1,13 @@
 import {Post} from "@/src/react/entities/posts/type/postsType";
 import {PostItem} from "@/src/react/shared/ui/post/ui/PostItem";
 import {StyleSheet, FlatList} from "react-native";
+import {memo} from "react";
 
 interface PostListComponentProps {
     posts: Post[];
 }
 
-export const PostListComponent = (props: PostListComponentProps) => {
+export const PostListComponent = memo((props: PostListComponentProps) => {
 
     const {posts} = props;
 
@@ -18,7 +19,7 @@ export const PostListComponent = (props: PostListComponentProps) => {
             contentContainerStyle={styles.container}
         />
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {

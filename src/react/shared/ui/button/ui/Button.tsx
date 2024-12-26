@@ -1,4 +1,5 @@
 import {GestureResponderEvent, TouchableOpacity,  StyleSheet, Text} from "react-native";
+import {memo} from "react";
 
 
 export enum ButtonTheme {
@@ -18,7 +19,7 @@ interface ButtonProps {
     onPress: (event: GestureResponderEvent) => void;
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button = memo((props: ButtonProps) => {
 
     const {buttonText, onPress, disabled, theme} = props;
 
@@ -29,7 +30,7 @@ export const Button = (props: ButtonProps) => {
             <Text style={styles.text}>{buttonText}</Text>
         </TouchableOpacity>
     )
-}
+})
 
 const getThemeStyles = (theme: ButtonTheme) => themeStyles[theme] || themeStyles[ButtonTheme.DEFAULT];
 
