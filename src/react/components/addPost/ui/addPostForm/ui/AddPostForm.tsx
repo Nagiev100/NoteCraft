@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
 
@@ -29,7 +29,7 @@ export const AddPostForm = () => {
                 name="title"
                 placeholder="Enter title"
                 rules={{required: "Title is required"}}
-                error={errors.title?.message}
+                error={ errors.title?.message}
             />
 
             <FormField
