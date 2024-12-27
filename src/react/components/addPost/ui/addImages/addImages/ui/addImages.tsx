@@ -1,7 +1,7 @@
 import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
 import {PhotoSourceModal} from "@/src/react/components/addPost/ui/addImages/photoSourceModal/ui/PhotoSourceModal";
 
@@ -18,24 +18,27 @@ export const AddImages = () => {
         setModalVisible(false);
     };
 
+    const renderImage = useMemo(() => {
+        return (
+            image ?
+                <ImageBackground
+                source={{ uri: image }}
+                style={styles.backgroundImage}
+                imageStyle={styles.image}
+            >
+                <TouchableOpacity onPress={handleImageDelete} style={styles.deleteButton}>
+                    <DeletePhoto width={20} height={20} />
+                </TouchableOpacity>
+            </ImageBackground> : <AddPhoto width={100} height={100} />
+        )
+    },[image])
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Photo</Text>
 
             <TouchableOpacity onPress={handleImagePress} style={styles.imageContainer}>
-                {image ? (
-                    <ImageBackground
-                        source={{ uri: image }}
-                        style={styles.backgroundImage}
-                        imageStyle={styles.image}
-                    >
-                        <TouchableOpacity onPress={handleImageDelete} style={styles.deleteButton}>
-                            <DeletePhoto width={20} height={20} />
-                        </TouchableOpacity>
-                    </ImageBackground>
-                ) : (
-                    <AddPhoto width={100} height={100} />
-                )}
+                {renderImage}
             </TouchableOpacity>
 
             <PhotoSourceModal
@@ -62,8 +65,8 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignItems: "center",
         justifyContent: "center",
-        width: 200,
-        height: 200,
+        width: 100,
+        height: 100,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "#ccc",
@@ -75,12 +78,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: "flex-end",
     },
-    imageWrapper: {
-        position: "relative",
-    },
     image: {
-        width: "100%",
-        height: "100%",
+        width: 50,
+        height: 50,
         borderRadius: 10,
     },
     deleteButton: {
@@ -90,34 +90,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 5,
         borderRadius: 50,
-    },
-    modalBackground: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-    },
-    modalContent: {
-        backgroundColor: "#fff",
-        padding: 20,
-        borderRadius: 10,
-        width: 300,
-        alignItems: "center",
-    },
-    modalTitle: {
-        fontSize: 18,
-        marginBottom: 20,
-    },
-    modalButton: {
-        padding: 10,
-        marginVertical: 10,
-        backgroundColor: "#007bff",
-        borderRadius: 5,
-        width: "100%",
-        alignItems: "center",
-    },
-    modalButtonText: {
-        color: "#fff",
-        fontSize: 16,
     },
 });
