@@ -1,14 +1,12 @@
 import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
 
 export const AddImages = () => {
 
     const {image, pickFromGallery, pickFromCamera, clearImage} = useImagePicker();
-    console.log("aaaaaaaaaaaaaaaaaa")
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
 
     const handleImagePress = () => setModalVisible(true);
@@ -18,10 +16,6 @@ export const AddImages = () => {
         source === 'gallery' ? pickFromGallery() :  pickFromCamera();
         setModalVisible(false);
     };
-
-    useEffect(() => {
-        console.log("Selected Image URI:", image);  // Добавим для отладки
-    }, [image]);
 
     return (
         <View style={styles.container}>
