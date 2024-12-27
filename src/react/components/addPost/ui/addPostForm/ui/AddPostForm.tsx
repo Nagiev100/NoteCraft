@@ -3,9 +3,7 @@ import {StyleSheet, View, Image} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
-import * as ImagePicker from 'expo-image-picker';
-import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
-
+import {AddImages} from "@/src/react/components/addPost/ui/addImages/ui/addImages";
 
 interface PostFormValues {
     title: string;
@@ -20,13 +18,9 @@ export const AddPostForm = () => {
         formState: {errors, isValid},
     } = useForm<PostFormValues>({mode: "onChange"});
 
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
     const onSubmit = (data: PostFormValues) => {
         console.log(data);
     };
-
-    const { image, pickFromGallery, pickFromCamera, clearImage } = useImagePicker();
 
     return (
         <View style={styles.container}>
@@ -46,15 +40,11 @@ export const AddPostForm = () => {
                 error={errors.description?.message}
             />
 
-            {image && (
+            <AddImages/>
+
+           {/* {image && (
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: image }} style={styles.image} />
-                    <Button
-                        buttonText="Clear Image"
-                        onPress={clearImage}
-                        theme={ButtonTheme.DEFAULT}
-                        disabled={false}
-                    />
                 </View>
             )}
 
@@ -71,7 +61,7 @@ export const AddPostForm = () => {
                     theme={ButtonTheme.DEFAULT}
                     disabled={false}
                 />
-            </View>
+            </View>*/}
 
             <Button
                 buttonText="Submit"
