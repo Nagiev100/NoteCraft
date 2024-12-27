@@ -3,6 +3,7 @@ import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
 import {useState} from "react";
 import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
+import {PhotoSourceModal} from "@/src/react/components/addPost/ui/addImages/photoSourceModal/ui/PhotoSourceModal";
 
 export const AddImages = () => {
 
@@ -37,31 +38,11 @@ export const AddImages = () => {
                 )}
             </TouchableOpacity>
 
-            <Modal visible={modalVisible} transparent={true} animationType="slide">
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Choose Photo Source</Text>
-                        <TouchableOpacity
-                            onPress={() => handleImageSelect('gallery')}
-                            style={styles.modalButton}
-                        >
-                            <Text style={styles.modalButtonText}>From Gallery</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handleImageSelect('camera')}
-                            style={styles.modalButton}
-                        >
-                            <Text style={styles.modalButtonText}>Use Camera</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setModalVisible(false)}
-                            style={styles.modalButton}
-                        >
-                            <Text style={styles.modalButtonText}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
+            <PhotoSourceModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onSelect={handleImageSelect}
+            />
         </View>
     );
 }
@@ -92,7 +73,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderRadius: 10,
-        justifyContent: "flex-end", // To position delete button at the bottom right
+        justifyContent: "flex-end",
     },
     imageWrapper: {
         position: "relative",

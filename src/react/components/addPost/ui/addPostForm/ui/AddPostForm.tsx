@@ -3,7 +3,7 @@ import {StyleSheet, View, Image} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
-import {AddImages} from "@/src/react/components/addPost/ui/addImages/ui/addImages";
+import {AddImages} from "@/src/react/components/addPost/ui/addImages/addImages/ui/addImages";
 
 interface PostFormValues {
     title: string;
@@ -41,27 +41,6 @@ export const AddPostForm = () => {
             />
 
             <AddImages/>
-
-           {/* {image && (
-                <View style={styles.imageContainer}>
-                    <Image source={{ uri: image }} style={styles.image} />
-                </View>
-            )}
-
-            <View style={styles.buttonGroup}>
-                <Button
-                    buttonText="Pick from Gallery"
-                    onPress={pickFromGallery}
-                    theme={ButtonTheme.DEFAULT}
-                    disabled={false}
-                />
-                <Button
-                    buttonText="Take Photo"
-                    onPress={pickFromCamera}
-                    theme={ButtonTheme.DEFAULT}
-                    disabled={false}
-                />
-            </View>*/}
 
             <Button
                 buttonText="Submit"
