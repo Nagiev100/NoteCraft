@@ -1,14 +1,13 @@
-import * as ImagePicker from 'expo-image-picker';
 import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
-import {useState} from "react";
-import {StyleSheet, View, Image, TouchableOpacity, Modal, Text} from "react-native";
+import {useEffect, useState} from "react";
+import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
 
 export const AddImages = () => {
 
     const {image, pickFromGallery, pickFromCamera, clearImage} = useImagePicker();
-
+    console.log("aaaaaaaaaaaaaaaaaa")
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -20,18 +19,25 @@ export const AddImages = () => {
         setModalVisible(false);
     };
 
+    useEffect(() => {
+        console.log("Selected Image URI:", image);  // Добавим для отладки
+    }, [image]);
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Photo</Text>
 
             <TouchableOpacity onPress={handleImagePress} style={styles.imageContainer}>
                 {image ? (
-                    <View style={styles.imageWrapper}>
-                        <Image source={{ uri: image }} style={styles.image} />
+                    <ImageBackground
+                        source={{ uri: image }}
+                        style={styles.backgroundImage}
+                        imageStyle={styles.image}
+                    >
                         <TouchableOpacity onPress={handleImageDelete} style={styles.deleteButton}>
                             <DeletePhoto width={20} height={20} />
                         </TouchableOpacity>
-                    </View>
+                    </ImageBackground>
                 ) : (
                     <AddPhoto width={100} height={100} />
                 )}
@@ -87,6 +93,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ccc",
         marginBottom: 20,
+    },
+    backgroundImage: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 10,
+        justifyContent: "flex-end", // To position delete button at the bottom right
     },
     imageWrapper: {
         position: "relative",
