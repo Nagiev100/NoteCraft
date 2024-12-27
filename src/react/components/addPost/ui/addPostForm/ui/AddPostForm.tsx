@@ -1,77 +1,92 @@
 import React, {useState} from "react";
-import {StyleSheet, View, Image} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
 import {AddImages} from "@/src/react/components/addPost/ui/addImages/addImages/ui/addImages";
+import {Post} from "@/src/react/entities/posts/type/postsType";
+import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
 
-interface PostFormValues {
+interface AddPostFormValues {
     title: string;
     description: string;
 }
 
-export const AddPostForm = () => {
+export const AddPostForm =  () => {
 
     const {
         control,
         handleSubmit,
         formState: {errors, isValid},
-    } = useForm<PostFormValues>({mode: "onChange"});
+    } = useForm<AddPostFormValues>({mode: "onChange"});
 
-    const onSubmit = (data: PostFormValues) => {
-        console.log(data);
+    const [image, setImage] = useState<string>("");
+
+    const handleImages = (img: string) => setImage(img);
+
+    const onSubmit = (data: AddPostFormValues) => {
+        const dataResponse: Post = {
+            title: data.title,
+            description: data.description,
+            icon: image,
+            id: generateUniqueId(),
+        }
+        console.log(dataResponse);
     };
 
     return (
         <View style={styles.container}>
-            <FormField
-                control={control}
-                name="title"
-                placeholder="Enter title"
-                rules={{required: "Title is required"}}
-                error={ errors.title?.message}
-            />
+            <View>
+                <FormField
+                    control={control}
+                    name="title"
+                    placeholder="Enter title"
+                    rules={{required: "Title is required"}}
+                    error={errors.title?.message}
+                />
 
-            <FormField
-                control={control}
-                name="description"
-                placeholder="Enter description"
-                rules={{required: "Description is required"}}
-                error={errors.description?.message}
-            />
+                <FormField
+                    control={control}
+                    name="description"
+                    placeholder="Enter description"
+                    rules={{required: "Description is required"}}
+                    error={errors.description?.message}
+                />
+            </View>
 
-            <AddImages/>
+            <View style={styles.containerImage}>
+                <AddImages getImg={handleImages}/>
+            </View>
 
-            <Button
-                buttonText="Submit"
-                onPress={handleSubmit(onSubmit)}
-                theme={!isValid ? ButtonTheme.DISABLED : ButtonTheme.DEFAULT}
-                disabled={!isValid}
-            />
+            <View style={styles.containerButton}>
+                <Button
+                    buttonText="Submit"
+                    onPress={handleSubmit(onSubmit)}
+                    theme={!isValid ? ButtonTheme.DISABLED : ButtonTheme.DEFAULT}
+                    disabled={!isValid}
+                />
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+
     container: {
-        padding: 20,
+        flex: 0,
+        paddingHorizontal: 20,
+        flexDirection: "column",
+        paddingTop: 20,
+        gap: 40,
     },
 
-    imageContainer: {
-        alignItems: "center",
-        marginVertical: 20,
+    containerImage: {
+        flex: 0,
+        alignItems: "flex-start",
     },
 
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-
-    buttonGroup: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 20,
-    },
+    containerButton: {
+        flex: 0,
+        marginBottom: 0
+    }
 });

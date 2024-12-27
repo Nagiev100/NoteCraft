@@ -1,11 +1,18 @@
 import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
 import {PhotoSourceModal} from "@/src/react/components/addPost/ui/addImages/photoSourceModal/ui/PhotoSourceModal";
 
-export const AddImages = () => {
+interface AddImagesProps {
+    getImg: (img: string) => void;
+}
+
+
+export const AddImages = (props: AddImagesProps) => {
+
+    const {getImg} = props;
 
     const {image, pickFromGallery, pickFromCamera, clearImage} = useImagePicker();
     const [modalVisible, setModalVisible] = useState(false);
@@ -32,6 +39,10 @@ export const AddImages = () => {
             </ImageBackground> : <AddPhoto width={100} height={100} />
         )
     },[image])
+
+    useEffect(() => {
+        image && getImg(image)
+    }, [image])
 
     return (
         <View style={styles.container}>
@@ -79,8 +90,8 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     image: {
-        width: 50,
-        height: 50,
+        width: "100%",
+        height: "100%",
         borderRadius: 10,
     },
     deleteButton: {

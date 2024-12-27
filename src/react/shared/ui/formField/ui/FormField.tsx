@@ -46,7 +46,7 @@ export const FormField = <T extends FieldValues>(
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10,
+        marginBottom: 10
     },
     input: {
         padding: 10,
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     },
     error: {
         color: "red",
-        marginTop: 5,
         fontSize: 14,
     },
 });
