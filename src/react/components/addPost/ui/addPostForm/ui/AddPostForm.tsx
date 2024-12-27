@@ -25,12 +25,14 @@ export const AddPostForm =  () => {
     const handleImages = (img: string) => setImage(img);
 
     const onSubmit = (data: AddPostFormValues) => {
+
         const dataResponse: Post = {
             title: data.title,
             description: data.description,
             icon: image,
             id: generateUniqueId(),
         }
+
         console.log(dataResponse);
     };
 
@@ -44,6 +46,10 @@ export const AddPostForm =  () => {
                     rules={{required: "Title is required"}}
                     error={errors.title?.message}
                 />
+
+                <View>
+
+                </View>
 
                 <FormField
                     control={control}
