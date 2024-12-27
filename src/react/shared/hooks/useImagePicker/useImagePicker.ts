@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ImagePicker from "react-native-image-crop-picker";
+import * as ImagePicker from "expo-image-picker";
 
 interface UseImagePickerResult {
     image: string | null;
@@ -9,16 +9,30 @@ interface UseImagePickerResult {
 }
 
 export const useImagePicker = (): UseImagePickerResult => {
-
     const [image, setImage] = useState<string | null>(null);
+
+    const requestPermissions = async () => {
+        const mediaPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (!mediaPermission.granted || !cameraPermission.granted) {
+            throw new Error("Permissions not granted");
+        }
+    };
 
     const pickFromGallery = async () => {
         try {
-            const result = await ImagePicker.openPicker({
-                cropping: true,
-                mediaType: "photo",
+            await requestPermissions();
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
             });
-            setImage(result.path);
+
+            if (!result.canceled) {
+                setImage(result.assets[0].uri);
+            }
         } catch (error) {
             console.error("Error picking image from gallery:", error);
         }
@@ -26,11 +40,17 @@ export const useImagePicker = (): UseImagePickerResult => {
 
     const pickFromCamera = async () => {
         try {
-            const result = await ImagePicker.openCamera({
-                cropping: true,
-                mediaType: "photo",
+            await requestPermissions();
+            const result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
             });
-            setImage(result.path);
+
+            if (!result.canceled) {
+                setImage(result.assets[0].uri);
+            }
         } catch (error) {
             console.error("Error picking image from camera:", error);
         }

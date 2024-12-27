@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {StyleSheet, View, Image} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
+import * as ImagePicker from 'expo-image-picker';
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
 
 
@@ -19,12 +20,13 @@ export const AddPostForm = () => {
         formState: {errors, isValid},
     } = useForm<PostFormValues>({mode: "onChange"});
 
-    const { image, pickFromGallery, pickFromCamera, clearImage } = useImagePicker();
-
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const onSubmit = (data: PostFormValues) => {
         console.log(data);
     };
+
+    const { image, pickFromGallery, pickFromCamera, clearImage } = useImagePicker();
 
     return (
         <View style={styles.container}>
@@ -47,13 +49,28 @@ export const AddPostForm = () => {
             {image && (
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: image }} style={styles.image} />
-                    <Button buttonText="Clear Image" onPress={clearImage} theme={ButtonTheme.DEFAULT} disabled={false} />
+                    <Button
+                        buttonText="Clear Image"
+                        onPress={clearImage}
+                        theme={ButtonTheme.DEFAULT}
+                        disabled={false}
+                    />
                 </View>
             )}
 
             <View style={styles.buttonGroup}>
-                <Button buttonText="Pick from Gallery" onPress={pickFromGallery} theme={ButtonTheme.DEFAULT} disabled={false}/>
-                <Button buttonText="Pick from Camera" onPress={pickFromCamera} theme={ButtonTheme.DEFAULT} disabled={false} />
+                <Button
+                    buttonText="Pick from Gallery"
+                    onPress={pickFromGallery}
+                    theme={ButtonTheme.DEFAULT}
+                    disabled={false}
+                />
+                <Button
+                    buttonText="Take Photo"
+                    onPress={pickFromCamera}
+                    theme={ButtonTheme.DEFAULT}
+                    disabled={false}
+                />
             </View>
 
             <Button
