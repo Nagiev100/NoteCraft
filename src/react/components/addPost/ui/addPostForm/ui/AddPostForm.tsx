@@ -14,8 +14,10 @@ export const AddPostForm = () => {
     const {
         control,
         handleSubmit,
-        formState: {errors},
-    } = useForm<PostFormValues>();
+        formState: {errors, isValid},
+    } = useForm<PostFormValues>({
+        mode: "onChange",
+    });
 
     const onSubmit = (data: PostFormValues) => {
         console.log(data);
@@ -36,7 +38,6 @@ export const AddPostForm = () => {
                 control={control}
                 name="description"
                 placeholder="Enter description"
-                multiline
                 rules={{required: "Description is required"}}
                 error={errors.description?.message}
             />
@@ -44,8 +45,8 @@ export const AddPostForm = () => {
             <Button
                 buttonText="Submit"
                 onPress={handleSubmit(onSubmit)}
-                theme={ButtonTheme.DEFAULT}
-                disabled={false}
+                theme={!isValid ? ButtonTheme.DISABLED : ButtonTheme.DEFAULT}
+                disabled={!isValid}
             />
         </View>
     );

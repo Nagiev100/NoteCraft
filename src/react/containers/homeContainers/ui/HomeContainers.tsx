@@ -2,10 +2,10 @@ import {Button, ButtonTheme} from "../../../shared/ui/button/ui/Button";
 import {useSelector} from "react-redux";
 import {RootState} from "@/src/redux/store/store";
 import {View, Text, StyleSheet} from "react-native";
-import {PostListComponent} from "@/src/react/components/PostList/ui/PostListComponent";
 import {useMemo} from "react";
 import {router} from "expo-router";
 import {RoutType} from "@/public/constants/Rout";
+import {PostListComponent} from "@/src/react/components/postList/ui/PostListComponent";
 
 export const HomeContainers = () => {
 
