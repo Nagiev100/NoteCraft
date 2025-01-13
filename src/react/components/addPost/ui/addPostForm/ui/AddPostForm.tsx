@@ -23,14 +23,14 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
     const [image, setImage] = useState<string | undefined>(undefined);
     const [state, setState] = useState<boolean>(false)
 
+    const handleImages = useCallback((img: string) => setImage(img), []);
+    const handleState = useCallback((state: boolean) => setState(state),[]);
+
     const {
         control,
         handleSubmit,
         formState: {errors, isValid},
     } = useForm<AddPostFormValues>({mode: "onChange"});
-
-    const handleImages = useCallback((img: string) => setImage(img), []);
-    const handleState = useCallback((state: boolean) => setState(state),[]);
 
     const onSubmit = (data: AddPostFormValues) => {
 

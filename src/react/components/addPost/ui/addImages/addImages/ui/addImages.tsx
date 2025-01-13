@@ -9,7 +9,6 @@ interface AddImagesProps {
     getImg: (img: string) => void;
 }
 
-
 export const AddImages = (props: AddImagesProps) => {
 
     const {getImg} = props;
