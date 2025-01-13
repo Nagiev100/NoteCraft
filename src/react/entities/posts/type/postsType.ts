@@ -1,7 +1,7 @@
 export interface Post {
     id: string;
     title: string;
-    date: string;
+    date: Date;
     state: boolean;
     icon: string;
     description: string;

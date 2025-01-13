@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useCallback, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
@@ -12,7 +12,16 @@ interface AddPostFormValues {
     description: string;
 }
 
-export const AddPostForm =  () => {
+interface AddPostFormProps {
+    handlePost: (post: Post) => void;
+}
+
+export const AddPostForm = memo((props: AddPostFormProps) => {
+
+    const {handlePost} = props;
+
+    const [image, setImage] = useState<string | undefined>(undefined);
+    const [state, setState] = useState<boolean>(false)
 
     const {
         control,
@@ -20,20 +29,21 @@ export const AddPostForm =  () => {
         formState: {errors, isValid},
     } = useForm<AddPostFormValues>({mode: "onChange"});
 
-    const [image, setImage] = useState<string>("");
-
-    const handleImages = (img: string) => setImage(img);
+    const handleImages = useCallback((img: string) => setImage(img), []);
+    const handleState = useCallback((state: boolean) => setState(state),[]);
 
     const onSubmit = (data: AddPostFormValues) => {
 
         const dataResponse: Post = {
+            id: generateUniqueId(),
             title: data.title,
             description: data.description,
-            icon: image,
-            id: generateUniqueId(),
+            icon: image ? image : "",
+            state: state,
+            date: new Date(),
         }
 
-        console.log(dataResponse);
+        handlePost(dataResponse);
     };
 
     return (
@@ -46,10 +56,6 @@ export const AddPostForm =  () => {
                     rules={{required: "Title is required"}}
                     error={errors.title?.message}
                 />
-
-                <View>
-
-                </View>
 
                 <FormField
                     control={control}
@@ -69,15 +75,14 @@ export const AddPostForm =  () => {
                     buttonText="Submit"
                     onPress={handleSubmit(onSubmit)}
                     theme={!isValid ? ButtonTheme.DISABLED : ButtonTheme.DEFAULT}
-                    disabled={!isValid}
+                    disabled={!isValid || !image}
                 />
             </View>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 0,
         paddingHorizontal: 20,
