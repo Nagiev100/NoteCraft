@@ -3,6 +3,7 @@ import {Controller, FieldValues, Control, RegisterOptions, Path} from "react-hoo
 import {Text, TextInput, StyleSheet, View} from "react-native";
 
 interface FormFieldProps<T extends FieldValues> {
+    id?: number;
     control: Control<T>;
     name: Path<T>;
     rules: Omit<RegisterOptions<T, Path<T>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled">;
@@ -13,6 +14,7 @@ interface FormFieldProps<T extends FieldValues> {
 
 export const FormField = <T extends FieldValues>(
     {
+        id,
         control,
         name,
         rules,

@@ -6,8 +6,9 @@ import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
 import {AddImages} from "@/src/react/components/addPost/ui/addImages/addImages/ui/addImages";
 import {Post} from "@/src/react/entities/posts/type/postsType";
 import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
+import {dataForForm} from "@/src/react/components/addPost/ui/addPostForm/helpers/dataForForm";
 
-interface AddPostFormValues {
+export interface AddPostFormValues {
     title: string;
     description: string;
 }
@@ -49,23 +50,18 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
     return (
         <View style={styles.container}>
             <View>
-                <FormField
-                    control={control}
-                    name="title"
-                    placeholder="Enter title"
-                    rules={{required: "Title is required"}}
-                    error={errors.title?.message}
-                />
-
-
-
-                <FormField
-                    control={control}
-                    name="description"
-                    placeholder="Enter description"
-                    rules={{required: "Description is required"}}
-                    error={errors.description?.message}
-                />
+                {
+                    dataForForm.map((el) => (
+                        <FormField
+                            id={el.id}
+                            control={control}
+                            name={el.name}
+                            placeholder={el.placeholder}
+                            rules={{required: "Title is required"}}
+                            error={errors.title?.message}
+                        />
+                    ))
+                }
             </View>
 
             <View style={styles.containerImage}>

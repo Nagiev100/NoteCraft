@@ -1,15 +1,73 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
 interface PhotoSourceModalProps {
     visible: boolean;
     onClose: () => void;
     onSelect: (source: 'gallery' | 'camera') => void;
+    isModalType: 'addImage' | 'statePost'
 }
 
 export const PhotoSourceModal = (props: PhotoSourceModalProps) => {
 
-    const {visible, onClose, onSelect} = props;
+    const {visible, onClose, onSelect, isModalType} = props;
+
+    const dataForModal = [{
+        imageModal: [
+            {
+                id: 1,
+                onPress: onSelect('gallery'),
+                style: styles.modalButton,
+                text: "From Gallery"
+            },
+            {
+                id: 2,
+                onPress: onSelect('camera'),
+                style: styles.modalButton,
+                text: "Use Camera"
+            },
+            {
+                id: 3,
+                onPress: onClose(),
+                style: styles.modalButton,
+                text: "Cancel"
+            }
+        ],
+        stateModal: [
+            {
+                id: 1,
+            },
+            {
+                id: 2
+            }
+        ]
+}]
+
+    const renderModal = useMemo(() => {
+        return (
+            <>
+                {
+                    isModalType === 'addImage' ?
+                        <Modal visible={visible} transparent={true} animationType="slide">
+                            {
+                                dataForModal[0].imageModal.map((el) => (
+                                    <TouchableOpacity key={el.id} onPress={el.onPress} style={el.style}>
+                                        <Text>{el.text}</Text>
+                                    </TouchableOpacity>
+                                ))
+                            }
+                        </Modal> :
+                        <Modal visible={visible} transparent={true} animationType="slide">
+                            {
+
+                            }
+                        </Modal>
+
+
+                }
+            </>
+        )
+    }, [isModalType])
 
     return (
         <Modal visible={visible} transparent={true} animationType="slide">
