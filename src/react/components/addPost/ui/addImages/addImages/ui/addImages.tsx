@@ -37,9 +37,7 @@ export const AddImages = (props: AddImagesProps) => {
             <AddPhoto width={100} height={100}/>;
     }, [image]);
 
-    useEffect(() => {
-        image && getImg(image)
-    }, [image]);
+    useEffect(() => {image && getImg(image)}, [image]);
 
     return (
         <View style={styles.container}>
