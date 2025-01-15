@@ -22,10 +22,10 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
     const {handlePost} = props;
 
     const [image, setImage] = useState<string | undefined>(undefined);
-    const [state, setState] = useState<boolean>(false)
+    const [state, setState] = useState<'Published' | 'Draft'>('Published')
 
     const handleImages = useCallback((img: string) => setImage(img), []);
-    const handleState = useCallback((state: boolean) => setState(state),[]);
+    const handleState = useCallback((state: 'Published' | 'Draft') => setState(state),[]);
 
     const {
         control,
@@ -39,7 +39,7 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
             id: generateUniqueId(),
             title: data.title,
             description: data.description,
-            icon: image ? image : "",
+            icon: image,
             state: state,
             date: new Date(),
         }
@@ -52,6 +52,7 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
             <View>
                 {
                     dataForForm.map((el) => (
+
                         <FormField
                             id={el.id}
                             control={control}

@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
 
 interface PhotoSourceModalProps {
     visible?: boolean;
@@ -16,19 +17,19 @@ export const PhotoSourceModal = (props: PhotoSourceModalProps) => {
     const dataForModal = {
         addImage: [
             {
-                id: 1,
+                id: generateUniqueId(),
                 onPress: () => onSelect?.('gallery'),
                 style: styles.modalButton,
                 text: "From Gallery",
             },
             {
-                id: 2,
+                id: generateUniqueId(),
                 onPress: () => onSelect?.('camera'),
                 style: styles.modalButton,
                 text: "Use Camera",
             },
             {
-                id: 3,
+                id: generateUniqueId(),
                 onPress: onClose,
                 style: styles.modalButton,
                 text: "Cancel",
@@ -36,13 +37,13 @@ export const PhotoSourceModal = (props: PhotoSourceModalProps) => {
         ],
         statePost: [
             {
-                id: 1,
+                id: generateUniqueId(),
                 onPress: () => onPressStatePost?.('Draft'),
                 style: styles.modalButton,
                 text: "Draft",
             },
             {
-                id: 2,
+                id: generateUniqueId(),
                 onPress: () => onPressStatePost?.('Published'),
                 style: styles.modalButton,
                 text: "Published",

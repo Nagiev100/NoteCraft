@@ -2,8 +2,8 @@ export interface Post {
     id: string;
     title: string;
     date: Date;
-    state: boolean;
-    icon: string;
+    state: 'Published' | 'Draft';
+    icon?: string;
     description: string;
 }
 
