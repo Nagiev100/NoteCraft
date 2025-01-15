@@ -3,7 +3,7 @@ export interface Post {
     title: string;
     date: Date;
     state: 'Published' | 'Draft';
-    icon?: string;
+    icon: string | null;
     description: string;
 }
 

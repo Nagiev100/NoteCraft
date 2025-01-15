@@ -9,6 +9,8 @@ import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
 import {dataForForm} from "@/src/react/components/addPost/ui/addPostForm/helpers/dataForForm";
 import {useShowModal} from "@/src/react/shared/hooks/useShowModal/useShowModal";
 
+type statePost = 'Published' | 'Draft';
+
 export interface AddPostFormValues {
     title: string;
     description: string;
@@ -24,8 +26,8 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
 
     const {openModal, renderModal} = useShowModal();
 
-    const [image, setImage] = useState<string | undefined>(undefined);
-    const [typeState, setTypeState] = useState<'Published' | 'Draft'>('Published')
+    const [image, setImage] = useState<string | null>(null);
+    const [typeState, setTypeState] = useState<statePost>('Published')
 
     const handleImages = useCallback((img: string) => setImage(img), []);
 
