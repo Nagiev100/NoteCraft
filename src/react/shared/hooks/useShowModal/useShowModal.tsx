@@ -3,12 +3,22 @@ import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
 type ModalType = 'addImage' | 'statePost';
 
+interface ModalOption {
+    id: string;
+    text: string;
+    onPress: () => void;
+}
+
+interface ModalData {
+    title: string;
+    options: ModalOption[];
+}
+
 export const useShowModal = () => {
 
     const [visible, setVisible] = useState(false);
 
-    const [data, setData] = useState<
-        { title: string; options: Array<{ id: string; text: string; onPress: () => void }> }>({title: '', options: []});
+    const [data, setData] = useState<ModalData>({title: '', options: []});
 
     const closeModal = useCallback(() => setVisible(false), []);
 

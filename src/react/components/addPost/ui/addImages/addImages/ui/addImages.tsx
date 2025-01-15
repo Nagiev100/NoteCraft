@@ -3,7 +3,7 @@ import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
 import {useEffect, useMemo, useState} from "react";
 import {StyleSheet, View, TouchableOpacity, Text, ImageBackground} from "react-native";
-import {useShowModal} from "@/src/react/shared/hooks/useImagePicker/useShowModal";
+import {useShowModal} from "@/src/react/shared/hooks/useShowModal/useShowModal";
 
 interface AddImagesProps {
     getImg: (img: string) => void;

@@ -7,7 +7,7 @@ import {AddImages} from "@/src/react/components/addPost/ui/addImages/addImages/u
 import {Post} from "@/src/react/entities/posts/type/postsType";
 import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
 import {dataForForm} from "@/src/react/components/addPost/ui/addPostForm/helpers/dataForForm";
-import {useShowModal} from "@/src/react/shared/hooks/useImagePicker/useShowModal";
+import {useShowModal} from "@/src/react/shared/hooks/useShowModal/useShowModal";
 
 export interface AddPostFormValues {
     title: string;
