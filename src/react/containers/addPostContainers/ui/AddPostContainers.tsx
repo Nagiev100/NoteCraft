@@ -25,6 +25,6 @@ export const AddPostContainers = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff", // Добавить фон для тестирования
+        backgroundColor: "#fff",
     },
 });
