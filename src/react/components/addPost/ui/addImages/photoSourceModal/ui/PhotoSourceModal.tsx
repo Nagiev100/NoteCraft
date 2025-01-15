@@ -48,6 +48,9 @@ export const PhotoSourceModal = (props: PhotoSourceModalProps) => {
                 style: styles.modalButton,
                 text: "Published",
             },
+            {
+                id: generateUniqueId(),
+            }
         ],
     };
 
