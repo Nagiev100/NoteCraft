@@ -2,7 +2,7 @@ import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
 import {useEffect, useMemo, useState} from "react";
-import {StyleSheet, View,  TouchableOpacity, Text, ImageBackground} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, ImageBackground} from "react-native";
 import {useShowModal} from "@/src/react/shared/hooks/useImagePicker/useShowModal";
 
 interface AddImagesProps {
@@ -10,10 +10,10 @@ interface AddImagesProps {
 }
 
 export const AddImages = (props: AddImagesProps) => {
-    const { getImg } = props;
+    const {getImg} = props;
 
-    const { openModal, renderModal } = useShowModal();
-    const { image, pickFromGallery, pickFromCamera, clearImage } = useImagePicker();
+    const {openModal, renderModal} = useShowModal();
+    const {image, pickFromGallery, pickFromCamera, clearImage} = useImagePicker();
 
     const handleImageSelect = (source: 'gallery' | 'camera') => {
         source === 'gallery' ? pickFromGallery() : pickFromCamera();
@@ -23,22 +23,23 @@ export const AddImages = (props: AddImagesProps) => {
     const handleImageDelete = () => clearImage();
 
     const renderImage = useMemo(() => {
-        return image ? (
+        return image ?
             <ImageBackground
-                source={{ uri: image }}
+                source={{uri: image}}
                 style={styles.backgroundImage}
                 imageStyle={styles.image}
             >
                 <TouchableOpacity onPress={handleImageDelete} style={styles.deleteButton}>
-                    <DeletePhoto width={20} height={20} />
+                    <DeletePhoto width={20} height={20}/>
                 </TouchableOpacity>
             </ImageBackground>
-        ) : (
-            <AddPhoto width={100} height={100}/>
-        );
+            :
+            <AddPhoto width={100} height={100}/>;
     }, [image]);
 
-    useEffect(() => {image && getImg(image)}, [image]);
+    useEffect(() => {
+        image && getImg(image)
+    }, [image]);
 
     return (
         <View style={styles.container}>

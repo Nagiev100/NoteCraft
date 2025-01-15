@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, {useState, useCallback} from "react";
+import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
 type ModalType = 'addImage' | 'statePost';
 
@@ -8,7 +8,7 @@ export const useShowModal = () => {
     const [visible, setVisible] = useState(false);
 
     const [data, setData] = useState<
-        {title: string; options: Array<{ id: string; text: string; onPress: () => void }>}>({title: '', options: [],});
+        { title: string; options: Array<{ id: string; text: string; onPress: () => void }> }>({title: '', options: []});
 
     const closeModal = useCallback(() => setVisible(false), []);
 
@@ -18,20 +18,39 @@ export const useShowModal = () => {
             addImage: {
                 title: "Choose Photo Source",
                 options: [
-                    { id: '1', text: "From Gallery", onPress: () => { onSelect('gallery'); closeModal()} },
-                    { id: '2', text: "Use Camera", onPress: () => { onSelect('camera'); closeModal() } },
-                    { id: '3', text: "Cancel", onPress: closeModal },
+                    {
+                        id: '1',
+                        text: "From Gallery",
+                        onPress: () => {onSelect('gallery');closeModal()}
+                    },
+                    {
+                        id: '2',
+                        text: "Use Camera",
+                        onPress: () => {onSelect('camera');closeModal()}
+                    },
+                    {id: '3', text: "Cancel", onPress: closeModal},
                 ],
             },
             statePost: {
                 title: "Select Post State",
                 options: [
-                    { id: '1', text: "Draft", onPress: () => { onSelect('Draft'); closeModal(); } },
-                    { id: '2', text: "Published", onPress: () => { onSelect('Published'); closeModal(); } },
-                    { id: '3', text: "Cancel", onPress: closeModal },
+                    {
+                        id: '1', text: "Draft", onPress: () => {
+                            onSelect('Draft');
+                            closeModal();
+                        }
+                    },
+                    {
+                        id: '2', text: "Published", onPress: () => {
+                            onSelect('Published');
+                            closeModal();
+                        }
+                    },
+                    {id: '3', text: "Cancel", onPress: closeModal},
                 ],
             },
         };
+
         setData(modalData[type]);
         setVisible(true);
     }, []);
@@ -57,7 +76,7 @@ export const useShowModal = () => {
         )
     );
 
-    return { openModal, renderModal };
+    return {openModal, renderModal};
 }
 
 const styles = StyleSheet.create({
