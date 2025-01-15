@@ -1,5 +1,5 @@
 import React, {memo, useCallback, useState} from "react";
-import {StyleSheet, Text, Touchable, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useForm} from "react-hook-form";
 import {Button, ButtonTheme} from "@/src/react/shared/ui/button/ui/Button"
 import {FormField} from "@/src/react/shared/ui/formField/ui/FormField"
@@ -8,6 +8,7 @@ import {Post} from "@/src/react/entities/posts/type/postsType";
 import {generateUniqueId} from "@/src/react/shared/helpers/generateUniqueId";
 import {dataForForm} from "@/src/react/components/addPost/ui/addPostForm/helpers/dataForForm";
 import {PhotoSourceModal} from "@/src/react/components/addPost/ui/addImages/photoSourceModal/ui/PhotoSourceModal";
+import {useShowModal} from "@/src/react/shared/hooks/useImagePicker/useShowModal";
 
 export interface AddPostFormValues {
     title: string;
@@ -22,15 +23,12 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
 
     const {handlePost} = props;
 
+    const {openModal, renderModal} = useShowModal();
+
     const [image, setImage] = useState<string | undefined>(undefined);
-    const [state, setState] = useState<'Published' | 'Draft'>('Published')
-    const [modalVisible, setModalVisible] = useState(false);
+    const [typeState, setTypeState] = useState<'Published' | 'Draft'>('Published')
 
     const handleImages = useCallback((img: string) => setImage(img), []);
-    const handleState = useCallback((state: 'Published' | 'Draft') => {
-        setState(state);
-        setModalVisible(false)
-    }, [] )
 
     const {
         control,
@@ -45,7 +43,7 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
             title: data.title,
             description: data.description,
             icon: image,
-            state: state,
+            state: typeState,
             date: new Date(),
         }
 
@@ -66,19 +64,12 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
                                 rules={{required: "Title is required"}}
                                 error={errors.title?.message}
                             /> :
-                            <TouchableOpacity key={el.id} onPress={() => setModalVisible(true)}>
-                                <Text>{state}</Text>
+                            <TouchableOpacity key={el.id} onPress={() => openModal('statePost', setTypeState)}>
+                                <Text>{typeState}</Text>
                             </TouchableOpacity>
                     ))
                 }
             </View>
-
-            <PhotoSourceModal
-                visible={modalVisible}
-                isModalType={"statePost"}
-                onSelect={handleImages}
-                onPressStatePost={handleState}
-            />
 
             <View style={styles.containerImage}>
                 <AddImages getImg={handleImages}/>
@@ -92,6 +83,8 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
                     disabled={!isValid || !image}
                 />
             </View>
+
+            {renderModal()}
         </View>
     );
 });

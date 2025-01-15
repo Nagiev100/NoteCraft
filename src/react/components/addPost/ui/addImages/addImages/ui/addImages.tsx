@@ -2,32 +2,29 @@ import AddPhoto from "@/public/images/svg/addPhoto.svg";
 import DeletePhoto from "@/public/images/svg/delete.svg"
 import {useImagePicker} from "@/src/react/shared/hooks/useImagePicker/useImagePicker";
 import {useEffect, useMemo, useState} from "react";
-import {StyleSheet, View, Image, TouchableOpacity, Modal, Text, ImageBackground} from "react-native";
-import {PhotoSourceModal} from "@/src/react/components/addPost/ui/addImages/photoSourceModal/ui/PhotoSourceModal";
+import {StyleSheet, View,  TouchableOpacity, Text, ImageBackground} from "react-native";
+import {useShowModal} from "@/src/react/shared/hooks/useImagePicker/useShowModal";
 
 interface AddImagesProps {
     getImg: (img: string) => void;
 }
 
 export const AddImages = (props: AddImagesProps) => {
+    const { getImg } = props;
 
-    const {getImg} = props;
-
-    const {image, pickFromGallery, pickFromCamera, clearImage} = useImagePicker();
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const handleImagePress = () => setModalVisible(true);
-    const handleImageDelete = () => clearImage();
+    const { openModal, renderModal } = useShowModal();
+    const { image, pickFromGallery, pickFromCamera, clearImage } = useImagePicker();
 
     const handleImageSelect = (source: 'gallery' | 'camera') => {
-        source === 'gallery' ? pickFromGallery() :  pickFromCamera();
-        setModalVisible(false);
+        source === 'gallery' ? pickFromGallery() : pickFromCamera();
     };
 
+    const handleImagePress = () => openModal('addImage', handleImageSelect);
+    const handleImageDelete = () => clearImage();
+
     const renderImage = useMemo(() => {
-        return (
-            image ?
-                <ImageBackground
+        return image ? (
+            <ImageBackground
                 source={{ uri: image }}
                 style={styles.backgroundImage}
                 imageStyle={styles.image}
@@ -35,13 +32,13 @@ export const AddImages = (props: AddImagesProps) => {
                 <TouchableOpacity onPress={handleImageDelete} style={styles.deleteButton}>
                     <DeletePhoto width={20} height={20} />
                 </TouchableOpacity>
-            </ImageBackground> : <AddPhoto width={100} height={100} />
-        )
-    },[image])
+            </ImageBackground>
+        ) : (
+            <AddPhoto width={100} height={100}/>
+        );
+    }, [image]);
 
-    useEffect(() => {
-        image && getImg(image)
-    }, [image])
+    useEffect(() => {image && getImg(image)}, [image]);
 
     return (
         <View style={styles.container}>
@@ -51,15 +48,10 @@ export const AddImages = (props: AddImagesProps) => {
                 {renderImage}
             </TouchableOpacity>
 
-            <PhotoSourceModal
-                visible={modalVisible}
-                onClose={() => setModalVisible(false)}
-                onSelect={handleImageSelect}
-                isModalType={'addImage'}
-            />
+            {renderModal()}
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {

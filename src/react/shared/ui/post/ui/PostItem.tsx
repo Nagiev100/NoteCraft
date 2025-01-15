@@ -22,7 +22,7 @@ export const PostItem = (props: PostItemProps) => {
                <Image style={styles.image} source={{uri: icon}}/>
                 <View>
                     <Text>{title}</Text>
-                    <Text>Created at: {date}</Text>
+                    <Text>Created at: {date.toLocaleString()}</Text>
                     <Text>{state}</Text>
                 </View>
             </View>
