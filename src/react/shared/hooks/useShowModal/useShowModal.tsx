@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from "react";
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {getModalData} from "@/src/react/shared/hooks/useShowModal/helpers/getModalData";
 
 type ModalType = 'addImage' | 'statePost';
 
@@ -9,7 +10,7 @@ interface ModalOption {
     onPress: () => void;
 }
 
-interface ModalData {
+export interface ModalData {
     title: string;
     options: ModalOption[];
 }
@@ -20,26 +21,10 @@ export const useShowModal = () => {
     const [data, setData] = useState<ModalData>({title: '', options: []});
 
     const closeModal = useCallback(() => setVisible(false), []);
+
     const openModal = useCallback((type: ModalType, onSelect: (value: any) => void) => {
 
-        const modalData = {
-            addImage: {
-                title: "Choose Photo Source",
-                options: [
-                    {id: '1', text: "From Gallery", onPress: () => {onSelect('gallery'); closeModal()}},
-                    {id: '2', text: "Use Camera", onPress: () => {onSelect('camera'); closeModal()}},
-                    {id: '3', text: "Cancel", onPress: closeModal},
-                ],
-            },
-            statePost: {
-                title: "Select Post State",
-                options: [
-                    {id: '1', text: "Draft", onPress: () => {onSelect('Draft'); closeModal()}},
-                    {id: '2', text: "Published", onPress: () => {onSelect('Published'); closeModal();}},
-                    {id: '3', text: "Cancel", onPress: closeModal},
-                ],
-            },
-        };
+        const modalData = getModalData(closeModal, onSelect);
 
         setData(modalData[type]);
         setVisible(true);
