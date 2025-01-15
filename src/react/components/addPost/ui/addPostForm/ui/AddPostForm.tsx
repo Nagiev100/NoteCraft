@@ -92,11 +92,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         justifyContent: "space-between",
-        gap: 20,
     },
 
     containerImage: {
-        alignItems: "flex-start",
+
     },
 
     containerButton: {

@@ -48,10 +48,9 @@ export const FormField = <T extends FieldValues>(
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10
+
     },
     input: {
-        padding: 10,
         fontSize: 16,
     },
     textArea: {
