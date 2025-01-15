@@ -51,11 +51,12 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.formContainer}>
                 {
                     dataForForm.map((el) => (
                         el.type === 'input' ?
                             <FormField
+                                key={el.id}
                                 id={el.id}
                                 control={control}
                                 name={el.name}
@@ -64,14 +65,12 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
                                 error={errors.title?.message}
                             /> :
                             <TouchableOpacity key={el.id} onPress={() => openModal('statePost', setTypeState)}>
-                                <Text>{typeState}</Text>
+                                <Text style={styles.stateText}>{typeState}</Text>
                             </TouchableOpacity>
                     ))
                 }
-            </View>
 
-            <View style={styles.containerImage}>
-                <AddImages getImg={handleImages}/>
+                    <AddImages getImg={handleImages}/>
             </View>
 
             <View style={styles.containerButton}>
@@ -90,20 +89,29 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0,
+        flex: 1,
         paddingHorizontal: 20,
-        flexDirection: "column",
-        paddingTop: 20,
-        gap: 40,
+        justifyContent: "space-between",
+        gap: 20,
+    },
+
+    formContainer: {
+
     },
 
     containerImage: {
-        flex: 0,
         alignItems: "flex-start",
     },
 
     containerButton: {
-        flex: 0,
-        marginBottom: 0,
-    }
+        position: "absolute",
+        bottom: 20,
+        left: 20,
+        right: 20,
+    },
+
+    stateText: {
+        fontSize: 16,
+        color: "#333",
+    },
 });

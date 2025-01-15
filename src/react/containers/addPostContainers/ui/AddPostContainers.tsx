@@ -1,4 +1,4 @@
-import {View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {AddPostHeader} from "@/src/react/components/addPost/ui/addPostHeader/ui/AddPostHeader";
 import {AddPostForm} from "@/src/react/components/addPost/ui/addPostForm/ui/AddPostForm";
 import {Post} from "@/src/react/entities/posts/type/postsType";
@@ -15,9 +15,16 @@ export const AddPostContainers = () => {
     }, []);
 
     return(
-        <View>
+        <View style={styles.container}>
             <AddPostHeader/>
             <AddPostForm handlePost={handlePost}/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff", // Добавить фон для тестирования
+    },
+});

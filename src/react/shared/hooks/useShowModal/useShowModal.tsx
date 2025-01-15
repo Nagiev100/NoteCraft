@@ -23,7 +23,6 @@ export const useShowModal = () => {
     const closeModal = useCallback(() => setVisible(false), []);
 
     const openModal = useCallback((type: ModalType, onSelect: (value: any) => void) => {
-
         const modalData = getModalData(closeModal, onSelect);
 
         setData(modalData[type]);
