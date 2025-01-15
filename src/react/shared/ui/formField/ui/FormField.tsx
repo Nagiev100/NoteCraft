@@ -7,7 +7,7 @@ interface FormFieldProps<T extends FieldValues> {
     control: Control<T>;
     name: Path<T>;
     rules: Omit<RegisterOptions<T, Path<T>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled">;
-    placeholder: string;
+    placeholder?: string;
     multiline?: boolean;
     error: string | undefined;
 }

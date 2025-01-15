@@ -2,98 +2,75 @@ import React, {useMemo} from "react";
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
 interface PhotoSourceModalProps {
-    visible: boolean;
-    onClose: () => void;
-    onSelect: (source: 'gallery' | 'camera') => void;
-    isModalType: 'addImage' | 'statePost'
+    visible?: boolean;
+    onClose?: () => void;
+    onSelect?: (source: 'gallery' | 'camera') => void;
+    isModalType: 'addImage' | 'statePost';
+    onPressStatePost?: (type: 'Published' | 'Draft') => void;
 }
 
 export const PhotoSourceModal = (props: PhotoSourceModalProps) => {
 
-    const {visible, onClose, onSelect, isModalType} = props;
+    const {visible, onClose, onSelect, isModalType, onPressStatePost} = props;
 
-    const dataForModal = [{
-        imageModal: [
+    const dataForModal = {
+        addImage: [
             {
                 id: 1,
-                onPress: onSelect('gallery'),
+                onPress: () => onSelect?.('gallery'),
                 style: styles.modalButton,
-                text: "From Gallery"
+                text: "From Gallery",
             },
             {
                 id: 2,
-                onPress: onSelect('camera'),
+                onPress: () => onSelect?.('camera'),
                 style: styles.modalButton,
-                text: "Use Camera"
+                text: "Use Camera",
             },
             {
                 id: 3,
-                onPress: onClose(),
+                onPress: onClose,
                 style: styles.modalButton,
-                text: "Cancel"
-            }
+                text: "Cancel",
+            },
         ],
-        stateModal: [
+        statePost: [
             {
                 id: 1,
+                onPress: () => onPressStatePost?.('Draft'),
+                style: styles.modalButton,
+                text: "Draft",
             },
             {
-                id: 2
-            }
-        ]
-}]
+                id: 2,
+                onPress: () => onPressStatePost?.('Published'),
+                style: styles.modalButton,
+                text: "Published",
+            },
+        ],
+    };
 
-    const renderModal = useMemo(() => {
+    const renderModalContent = useMemo(() => {
+
+        const modalData = dataForModal[isModalType];
+
         return (
-            <>
-                {
-                    isModalType === 'addImage' ?
-                        <Modal visible={visible} transparent={true} animationType="slide">
-                            {
-                                dataForModal[0].imageModal.map((el) => (
-                                    <TouchableOpacity key={el.id} onPress={el.onPress} style={el.style}>
-                                        <Text>{el.text}</Text>
-                                    </TouchableOpacity>
-                                ))
-                            }
-                        </Modal> :
-                        <Modal visible={visible} transparent={true} animationType="slide">
-                            {
-
-                            }
-                        </Modal>
-
-
-                }
-            </>
-        )
-    }, [isModalType])
+            <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>
+                    {isModalType === 'addImage' ? "Choose Photo Source" : "Draft"}
+                </Text>
+                {modalData.map((el) => (
+                    <TouchableOpacity key={el.id} onPress={el.onPress} style={el.style}>
+                        <Text style={styles.modalButtonText}>{el.text}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        );
+    }, [isModalType, dataForModal]);
 
     return (
         <Modal visible={visible} transparent={true} animationType="slide">
-            <View style={styles.modalBackground}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.modalTitle}>Choose Photo Source</Text>
-                    <TouchableOpacity
-                        onPress={() => onSelect('gallery')}
-                        style={styles.modalButton}
-                    >
-                        <Text style={styles.modalButtonText}>From Gallery</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => onSelect('camera')}
-                        style={styles.modalButton}
-                    >
-                        <Text style={styles.modalButtonText}>Use Camera</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={onClose}
-                        style={styles.modalButton}
-                    >
-                        <Text style={styles.modalButtonText}>Cancel</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <View style={styles.modalBackground}>{renderModalContent}</View>
         </Modal>
     );
 };

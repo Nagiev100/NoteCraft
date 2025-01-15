@@ -1,7 +1,7 @@
 import {Path} from "react-hook-form";
 import {AddPostFormValues} from "@/src/react/components/addPost/ui/addPostForm/ui/AddPostForm";
 
-export const dataForForm: Array<{id: number; name: Path<AddPostFormValues>; placeholder: string; type: string}> = [
+export const dataForForm: Array<{id: number; name: Path<AddPostFormValues>; placeholder?: string; type: string}> = [
     {
         id: 1,
         name: "title",
@@ -9,9 +9,8 @@ export const dataForForm: Array<{id: number; name: Path<AddPostFormValues>; plac
         type: "input"
     },
     {
-        id: 3,
+        id: 2,
         name: "description",
-        placeholder: "dsfd",
         type: "modal",
     },
     {

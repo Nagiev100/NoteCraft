@@ -55,6 +55,7 @@ export const AddImages = (props: AddImagesProps) => {
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
                 onSelect={handleImageSelect}
+                isModalType={'addImage'}
             />
         </View>
     );
