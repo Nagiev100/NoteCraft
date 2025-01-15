@@ -94,10 +94,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
 
-    containerImage: {
-
-    },
-
     containerButton: {
         position: "absolute",
         bottom: 20,

@@ -18,7 +18,7 @@ export interface ModalData {
 export const useShowModal = () => {
 
     const [visible, setVisible] = useState(false);
-    const [data, setData] = useState<ModalData>({title: '', options: []});
+    const [data, setData] = useState<ModalData | null>(null);
 
     const closeModal = useCallback(() => setVisible(false), []);
 
@@ -34,8 +34,8 @@ export const useShowModal = () => {
             <Modal visible={true} transparent={true} animationType="slide">
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{data.title}</Text>
-                        {data.options.map((option) => (
+                        <Text style={styles.modalTitle}>{data?.title}</Text>
+                        {data?.options.map((option) => (
                             <TouchableOpacity
                                 key={option.id}
                                 onPress={option.onPress}
