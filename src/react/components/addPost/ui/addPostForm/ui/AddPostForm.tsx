@@ -27,7 +27,7 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
     const {openModal, renderModal} = useShowModal();
 
     const [image, setImage] = useState<string | null>(null);
-    const [typeState, setTypeState] = useState<statePost>('Published')
+    const [typeState, setTypeState] = useState<statePost>('Published');
 
     const handleImages = useCallback((img: string) => setImage(img), []);
 
