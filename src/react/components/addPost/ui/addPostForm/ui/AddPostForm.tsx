@@ -51,7 +51,7 @@ export const AddPostForm = memo((props: AddPostFormProps) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.formContainer}>
+            <View>
                 {
                     dataForForm.map((el) => (
                         el.type === 'input' ?
@@ -93,10 +93,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         justifyContent: "space-between",
         gap: 20,
-    },
-
-    formContainer: {
-
     },
 
     containerImage: {
