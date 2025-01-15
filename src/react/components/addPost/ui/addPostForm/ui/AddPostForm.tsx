@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
 
     containerButton: {
         flex: 0,
-        marginBottom: 0
+        marginBottom: 0,
     }
 });
